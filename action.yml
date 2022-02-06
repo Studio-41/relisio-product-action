@@ -1,0 +1,31 @@
+name: 'Deploy As Relisio Product'
+description: 'Create a new Relisio product from GitHub'
+inputs:
+    relisio-domain:
+        description: 'Relisio base url (only for enterprise installations)'
+        default: 'relisio.com'
+        required: false
+    workspace-path:
+        description: 'Path of the Workspace where to publish the Product'
+        required: true
+    product-id:
+        description: 'ID of an existing product (only if you want to update the existing product)'
+        required: false
+    visibility:
+        description: 'Visibility of the product withing the workspace (private, internal or public)'
+        required: true
+        default: 'internal'
+    token:
+        description: 'API token to authorize the deployment'
+        required: false
+outputs:
+    product-id:
+        description: 'ID of the Deployed Product'
+    public-url:
+        description: 'URL of the Deployed Product'
+branding:
+    icon: 'relisio-logo.svg'
+    color: 'blue'
+runs:
+  using: 'node17'
+  main: 'dist/index.js'
