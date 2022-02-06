@@ -30,7 +30,7 @@ outputs:
     public-url:
         description: 'URL of the Deployed Product'
 branding:
-    icon: 'relisio-logo.svg'
+    icon: 'save'
     color: 'blue'
 runs:
   using: 'node12'

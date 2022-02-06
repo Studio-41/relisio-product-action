@@ -32,7 +32,7 @@ async function run(): Promise<void> {
         .digest('hex')
     }
 
-    const publicUrl = `https://${relisoUrl}/${workspacePath}/products/${productId}`
+    const publicUrl = `https://${relisoUrl}/api/v1/workspaces/${workspacePath}/products/${productId}`
 
     const response = await fetch(publicUrl, {
       method: 'POST',
