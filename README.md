@@ -19,7 +19,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Deploy As Relisio Product 
-      uses: Studio-41/relisio-deploy-action@v1
+      uses: Studio-41/relisio-product-action@v1
       with:
         workspace-path: ${{ secrets.RELISIO_WORKSPACE }}
         visibility: private

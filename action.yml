@@ -1,5 +1,5 @@
-name: 'Deploy As Relisio Product'
-description: 'Create a new Relisio product from GitHub'
+name: 'Update Relisio Product Portfolio'
+description: 'Create/Update a Relisio product from GitHub'
 inputs:
     relisio-domain:
         description: 'Relisio base url (only for enterprise installations)'
@@ -27,5 +27,5 @@ branding:
     icon: 'relisio-logo.svg'
     color: 'blue'
 runs:
-  using: 'node17'
+  using: 'node12'
   main: 'dist/index.js'
