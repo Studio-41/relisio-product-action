@@ -32,10 +32,12 @@
   },
   "homepage": "https://github.com/Studio-41/relisio-product-action#readme",
   "dependencies": {
-    "@actions/core": "^1.6.0"
+    "@actions/core": "^1.6.0",
+    "node-fetch": "^3.2.0"
   },
   "devDependencies": {
     "@types/node": "^16.10.5",
+    "@types/node-fetch": "^3.0.3",
     "@typescript-eslint/parser": "^5.8.1",
     "@vercel/ncc": "^0.31.1",
     "eslint": "^8.0.1",

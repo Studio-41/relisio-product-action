@@ -1,17 +1,23 @@
 import * as core from '@actions/core'
 import {createHash} from 'crypto'
+import fetch from 'node-fetch'
 
 async function run(): Promise<void> {
   try {
+    const apiKey = core.getInput('api-key')
+    if (!apiKey) {
+      throw new Error('api-key is required')
+    }
+
     const workspacePath = core.getInput('workspace-path')
 
     if (!workspacePath) {
       throw new Error('workspace-path is required')
     }
 
-    const relisioDomain = core.getInput('relisio-domain')
-    if (!relisioDomain) {
-      throw new Error('relisio-domain is required')
+    const relisoUrl = core.getInput('relisio-url')
+    if (!relisoUrl) {
+      throw new Error('relisio-url is required')
     }
 
     const now = new Date().getTime()
@@ -26,8 +32,21 @@ async function run(): Promise<void> {
         .digest('hex')
     }
 
-    const publicUrl = `https://relisio.com/${workspacePath}/products/${productId}`
+    const publicUrl = `https://${relisoUrl}/${workspacePath}/products/${productId}`
 
+    const response = await fetch(publicUrl, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${apiKey}`
+      },
+      body: JSON.stringify({})
+    })
+
+    if (!response.ok) {
+      core.setFailed(`could not create product: ${response.statusText}`)
+      return
+    }
     core.setOutput('product-id', productId)
     core.setOutput('public-url', publicUrl)
   } catch (error) {
