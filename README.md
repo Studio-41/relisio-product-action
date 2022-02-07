@@ -1,4 +1,7 @@
+<img src="https://user-images.githubusercontent.com/11739105/152799348-e70d55f4-3914-43cd-866f-f2b979071be2.svg" alt="Relisio Product" style="max-width: 128px;" />
+
 This Github action is an official [Relisio](https://www.relisio.com/) deploy utility.<br />
+Use it to create/update products inside your portfolio.
 
 ### Prerequisites
  1. an active workspace at [www.resisio.com](https://www.relisio.com);
