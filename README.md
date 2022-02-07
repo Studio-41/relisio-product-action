@@ -1,10 +1,18 @@
 This Github action is an official [Relisio](https://www.relisio.com/) deploy utility.<br />
 
-Before you start using this action:
+### Prerequisites
+ 1. an active workspace at [www.resisio.com](https://www.relisio.com);
+ 2. configure an `api-key` for the workspace;
+ 3. have a GitHub workflow that produces one or more artefacts that you want to publish;
+
+### Before you start
 
  1. consider that Relisio is currently in Beta, and breaking changes may occur at any time,
  2. the `api-key` can be generated (and destroyed) from your workspace settings,
  3. if you intend to update a product (instead of creating a new one), you must specify the `product-id` input,
+ 4. you may or may not use this action together with 
+    - `Studio-41/relisio-artefact-action@v1`
+    - `Studio-41/relisio-project-action@v1`
 
 ## Configure Github repository's action
 
