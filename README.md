@@ -18,7 +18,7 @@ This Github action is an official [Relisio](https://www.relisio.com/) deploy uti
 
 |input|description|required|default|
 |---|---|:---:|:---:|
-|relisio-url|description Relisio base url (only for enterprise installations)|false|https//relisio.com|
+|relisio-url|description Relisio base url (only for enterprise installations)|false|https://relisio.com|
 |api-key|description API key to authorize the deployment|true|
 |workspace-path|description Path of the Workspace where to publish the Product|true|
 |product-template-id|description ID of an existing product withing the workspace to clone as the base for this new product|false|
