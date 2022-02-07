@@ -10,13 +10,23 @@ This Github action is an official [Relisio](https://www.relisio.com/) deploy uti
  1. consider that Relisio is currently in Beta, and breaking changes may occur at any time,
  2. the `api-key` can be generated (and destroyed) from your workspace settings,
  3. if you intend to update a product (instead of creating a new one), you must specify the `product-id` input,
- 4. you may or may not use this action together with 
+ 4. optionally you may use this action together with 
     - `Studio-41/relisio-artefact-action@v1`
     - `Studio-41/relisio-project-action@v1`
 
-## Configure Github repository's action
+### Available inputs
 
-### Basic Example
+|input|description|required|default|
+|---|---|:---:|:---:|
+|relisio-url|description Relisio base url (only for enterprise installations)|false|https//relisio.com|
+|api-key|description API key to authorize the deployment|true|
+|workspace-path|description Path of the Workspace where to publish the Product|true|
+|product-template-id|description ID of an existing product withing the workspace to clone as the base for this new product|false|
+|product-id|description ID of an existing product (only if you want to update the existing product)|false|
+|product-name|description Name of the product|true|
+|visibility|description Visibility of the product withing the workspace (private, internal or public)|true|internal|
+
+## Basic Example
 
 The following example publishes a new product into your workspace every time a Tag (having `v` prefix) is created.<br/>
 
