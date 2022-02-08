@@ -4,7 +4,7 @@ This Github action is an official [Relisio](https://www.relisio.com/) deploy uti
 Use it to create/update products inside your portfolio.
 
 ### Prerequisites
- 1. an active workspace at [www.resisio.com](https://www.relisio.com);
+ 1. an active workspace at [www.relisio.com](https://www.relisio.com);
  2. configure an `api-key` for the workspace;
  3. have a GitHub workflow that produces one or more artefacts that you want to publish;
 
