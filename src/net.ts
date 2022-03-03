@@ -1,15 +1,20 @@
+import http from 'http'
 import https from 'https'
 
 export const post = async <T>(
-  hostname: string,
-  path: string,
+  url: string,
   apiKey: string,
   body: string
 ): Promise<T> =>
   new Promise((resolve, reject) => {
+    const urlObject = new URL(url)
+
+    const request = urlObject.protocol === 'https:' ? https : http
+
     const options = {
-      hostname,
-      path,
+      hostname: urlObject.hostname,
+      path: urlObject.pathname,
+      port: urlObject.port,
       method: 'POST',
       headers: {
         Authorization: `Bearer ${apiKey}`,
@@ -18,8 +23,13 @@ export const post = async <T>(
       }
     }
 
-    const req = https
+    const req = request
       .request(options, res => {
+        if (res.statusCode !== 200) {
+          reject(new Error(`${res.statusCode} ${res.statusMessage}`))
+          return
+        }
+
         let r = ''
 
         res.on('data', chunk => {

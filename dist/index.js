@@ -58,8 +58,8 @@ function run() {
             if (!originalId && !productName) {
                 throw new Error('product-template-id or product-name is required');
             }
-            const path = `/api/v1/workspaces/${workspacePath}/products`;
-            const { _id, name = '' } = yield (0, net_1.post)(relisoUrl, path, apiKey, JSON.stringify({
+            const url = `${relisoUrl}/api/v1/workspaces/${workspacePath}/products`;
+            const { _id, name = '' } = yield (0, net_1.post)(url, apiKey, JSON.stringify({
                 originalId,
                 productName,
                 productScope
@@ -100,12 +100,16 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.post = void 0;
+const http_1 = __importDefault(__nccwpck_require__(605));
 const https_1 = __importDefault(__nccwpck_require__(211));
-const post = (hostname, path, apiKey, body) => __awaiter(void 0, void 0, void 0, function* () {
+const post = (url, apiKey, body) => __awaiter(void 0, void 0, void 0, function* () {
     return new Promise((resolve, reject) => {
+        const urlObject = new URL(url);
+        const request = urlObject.protocol === 'https:' ? https_1.default : http_1.default;
         const options = {
-            hostname,
-            path,
+            hostname: urlObject.hostname,
+            path: urlObject.pathname,
+            port: urlObject.port,
             method: 'POST',
             headers: {
                 Authorization: `Bearer ${apiKey}`,
@@ -113,8 +117,12 @@ const post = (hostname, path, apiKey, body) => __awaiter(void 0, void 0, void 0,
                 'Content-Length': body.length
             }
         };
-        const req = https_1.default
+        const req = request
             .request(options, res => {
+            if (res.statusCode !== 200) {
+                reject(new Error(`${res.statusCode} ${res.statusMessage}`));
+                return;
+            }
             let r = '';
             res.on('data', chunk => {
                 r += chunk;

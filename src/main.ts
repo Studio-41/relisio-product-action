@@ -29,11 +29,10 @@ async function run(): Promise<void> {
       throw new Error('product-template-id or product-name is required')
     }
 
-    const path = `/api/v1/workspaces/${workspacePath}/products`
+    const url = `${relisoUrl}/api/v1/workspaces/${workspacePath}/products`
 
     const {_id, name = ''} = await post<{_id: string; name: string}>(
-      relisoUrl,
-      path,
+      url,
       apiKey,
       JSON.stringify({
         originalId,
