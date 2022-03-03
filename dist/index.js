@@ -39,7 +39,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 const core = __importStar(__nccwpck_require__(186));
-const crypto_1 = __nccwpck_require__(417);
 const node_fetch_1 = __importDefault(__nccwpck_require__(882));
 function run() {
     return __awaiter(this, void 0, void 0, function* () {
@@ -56,28 +55,24 @@ function run() {
             if (!relisoUrl) {
                 throw new Error('relisio-url is required');
             }
-            const now = new Date().getTime();
-            let productId = core.getInput('product-id');
-            if (!productId) {
-                core.debug('product-id is not set, a new product will be created');
-                productId = (0, crypto_1.createHash)('sha256')
-                    .update(`${workspacePath}/products/${now}`)
-                    .digest('hex');
-            }
-            const publicUrl = `https://${relisoUrl}/api/v1/workspaces/${workspacePath}/products/${productId}`;
+            const originalId = core.getInput('product-template-id');
+            const publicUrl = `https://${relisoUrl}/api/v1/workspaces/${workspacePath}/products`;
             const response = yield (0, node_fetch_1.default)(publicUrl, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                     Authorization: `Bearer ${apiKey}`
                 },
-                body: JSON.stringify({})
+                body: JSON.stringify({
+                    originalId
+                })
             });
             if (!response.ok) {
                 core.setFailed(`could not create product: ${response.statusText}`);
                 return;
             }
-            core.setOutput('product-id', productId);
+            const { _id = '' } = (yield response.json());
+            core.setOutput('product-id', _id);
             core.setOutput('public-url', publicUrl);
         }
         catch (error) {
@@ -8593,14 +8588,6 @@ module.exports = require("assert");
 
 "use strict";
 module.exports = require("buffer");
-
-/***/ }),
-
-/***/ 417:
-/***/ ((module) => {
-
-"use strict";
-module.exports = require("crypto");
 
 /***/ }),
 
