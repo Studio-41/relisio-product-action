@@ -20,7 +20,7 @@ inputs:
     product-name:
         description: 'Name of the product'
         required: true
-    visibility:
+    product-scope:
         description: 'Visibility of the product withing the workspace (private, internal or public)'
         required: true
         default: 'internal'
@@ -28,7 +28,9 @@ outputs:
     product-id:
         description: 'ID of the Deployed Product'
     public-url:
-        description: 'URL of the Deployed Product'
+        description: 'Public URL of the Deployed Product'
+    api-url:
+        description: 'API URL of the Deployed Product'
 branding:
     icon: 'save'
     color: 'blue'

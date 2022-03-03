@@ -1,5 +1,5 @@
 import * as core from '@actions/core'
-import fetch from 'node-fetch'
+import {post} from './net'
 
 async function run(): Promise<void> {
   try {
@@ -14,6 +14,10 @@ async function run(): Promise<void> {
       throw new Error('workspace-path is required')
     }
 
+    const productName = core.getInput('product-name')
+
+    const productScope = core.getInput('product-scope')
+
     const relisoUrl = core.getInput('relisio-url')
     if (!relisoUrl) {
       throw new Error('relisio-url is required')
@@ -21,27 +25,28 @@ async function run(): Promise<void> {
 
     const originalId = core.getInput('product-template-id')
 
-    const publicUrl = `https://${relisoUrl}/api/v1/workspaces/${workspacePath}/products`
-
-    const response = await fetch(publicUrl, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${apiKey}`
-      },
-      body: JSON.stringify({
-        originalId
-      })
-    })
-
-    if (!response.ok) {
-      core.setFailed(`could not create product: ${response.statusText}`)
-      return
+    if (!originalId && !productName) {
+      throw new Error('product-template-id or product-name is required')
     }
 
-    const {_id = ''} = (await response.json()) as {_id: string}
+    const path = `/api/v1/workspaces/${workspacePath}/products`
+
+    const {_id, name = ''} = await post<{_id: string; name: string}>(
+      relisoUrl,
+      path,
+      apiKey,
+      JSON.stringify({
+        originalId,
+        productName,
+        productScope
+      })
+    )
+
+    const apiUrl = `${relisoUrl}/workspaces/${workspacePath}/products/${name}`
+    const publicUrl = `${relisoUrl}/${workspacePath}/${name}`
 
     core.setOutput('product-id', _id)
+    core.setOutput('api-url', apiUrl)
     core.setOutput('public-url', publicUrl)
   } catch (error) {
     core.debug(`Deployment Failed with Error: ${error}`)
