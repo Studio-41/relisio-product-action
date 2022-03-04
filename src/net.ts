@@ -25,11 +25,6 @@ export const post = async <T>(
 
     const req = request
       .request(options, res => {
-        if (res.statusCode !== 200) {
-          reject(new Error(`${res.statusCode} ${res.statusMessage}`))
-          return
-        }
-
         let r = ''
 
         res.on('data', chunk => {
@@ -37,7 +32,11 @@ export const post = async <T>(
         })
 
         res.on('end', () => {
-          resolve(JSON.parse(r))
+          if (res.statusCode !== 200 && res.statusCode !== 201) {
+            reject(new Error(`Status code: ${res.statusCode} - ${r}`))
+          } else {
+            resolve(JSON.parse(r))
+          }
         })
       })
       .on('error', err => {

@@ -119,16 +119,17 @@ const post = (url, apiKey, body) => __awaiter(void 0, void 0, void 0, function* 
         };
         const req = request
             .request(options, res => {
-            if (res.statusCode !== 200) {
-                reject(new Error(`${res.statusCode} ${res.statusMessage}`));
-                return;
-            }
             let r = '';
             res.on('data', chunk => {
                 r += chunk;
             });
             res.on('end', () => {
-                resolve(JSON.parse(r));
+                if (res.statusCode !== 200 && res.statusCode !== 201) {
+                    reject(new Error(`Status code: ${res.statusCode} - ${r}`));
+                }
+                else {
+                    resolve(JSON.parse(r));
+                }
             });
         })
             .on('error', err => {
