@@ -14,6 +14,7 @@ Use it to create/update products within your workspace.
  2. the `api-key` can be generated (and destroyed) from your workspace settings,
  3. if you intend to update a product (instead of creating a new one), you must specify the `product-template-id` input,
  4. optionally you may use this action together with 
+    - `Studio-41/relisio-artefact-action@v1`
     - `Studio-41/relisio-project-action@v1`
 
 ### Available inputs
@@ -58,7 +59,7 @@ jobs:
       with:
         api-key: ${{ secrets.RELISIO_API_KEY }}
         workspace-path: ${{ secrets.RELISIO_WORKSPACE }}
-        visibility: internal
+        product-scope: internal
         product-name: The Name of The Product
 ```
 
@@ -85,15 +86,12 @@ jobs:
       with:
         api-key: ${{ secrets.RELISIO_API_KEY }}
         workspace-path: ${{ secrets.RELISIO_WORKSPACE }}
-        visibility: public
+        product-scope: public
         product-template-id: ${{ secrets.RELISIO_PRODUCT_TEMPLATE_ID }}
 ```
-
- - As the `product-template-id` is specified, Relisio will clone the content from that product (within the workspace).
-
 <hr/>
 
-### <img src="https://user-images.githubusercontent.com/11739105/152801493-cb6ccd69-7968-45a1-a422-01e2ea9a9e48.svg" alt="Artifact" width="32"> Work with Relisio Artefacts
+### <img src="https://user-images.githubusercontent.com/11739105/156749223-0a34348c-2155-4599-8b51-778cb9c91d50.svg" alt="Artifact" width="32"> Work with Relisio Artefacts
 
 You can optionally configure your GitHub Workflow to upload **any artefact** as part of the new product using `Studio-41/relisio-artefact-action@v1` ([more details](https://github.com/Studio-41/relisio-artefact-action)).
 
