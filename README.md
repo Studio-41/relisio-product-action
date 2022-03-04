@@ -27,7 +27,7 @@ Use it to create/update products within your workspace.
 |product-name| Name of the product. Required if `product-template-id` is not defined. When `product-template-id` is specified, Relisio will use the original name|conditional|
 |product-scope| Visibility of the product withing the workspace (private, internal or public)|true|internal|
 
-### Available outpus
+### Available outputs
 
 |id|description|
 |---|:---|
