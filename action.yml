@@ -14,9 +14,6 @@ inputs:
     product-template-id:
         description: 'ID of an existing product withing the workspace to clone as the base for this new product'
         required: false
-    product-id:
-        description: 'ID of an existing product (only if you want to update the existing product)'
-        required: false
     product-name:
         description: 'Name of the product'
         required: true

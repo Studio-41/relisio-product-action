@@ -1,7 +1,7 @@
 <img src="https://user-images.githubusercontent.com/11739105/152799348-e70d55f4-3914-43cd-866f-f2b979071be2.svg" alt="Relisio Product"  width="128" />
 
 This Github action is an official [Relisio](https://www.relisio.com/) deploy utility.<br />
-Use it to create/update products within your workspace.
+Use it to create products within your workspace.
 
 ### Prerequisites
  1. an active workspace at [www.relisio.com](https://www.relisio.com) or a self-hosted copy of Relisio;
@@ -12,8 +12,7 @@ Use it to create/update products within your workspace.
 
  1. consider that Relisio is currently in Beta, and breaking changes may occur at any time,
  2. the `api-key` can be generated (and destroyed) from your workspace settings,
- 3. if you intend to update a product (instead of creating a new one), you must specify the `product-template-id` input,
- 4. optionally you may use this action together with 
+ 3. optionally you may use this action together with 
     - `Studio-41/relisio-artefact-action@v1`
     - `Studio-41/relisio-project-action@v1`
 
